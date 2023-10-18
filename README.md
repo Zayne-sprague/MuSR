@@ -57,7 +57,7 @@ You can see all the datasets that can be downloaded via
 And you can install them individually via
 `python ./install.py -a musr_muder_mysteries ...etc`
 
-## Creating a dataset
+## Generating a dataset
 
 Every dataset creation script is in `{project_root}/musr_dataset_scripts`.  In those files are detailed instructions on how to create MuSR datasets as well as parameters for creating your own unique datasets!  Individual components that are used to create each dataset should be heavily documented as well.
 
