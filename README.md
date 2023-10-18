@@ -1,0 +1,96 @@
+# MuSR: Testing the Limits of Chain-of-thought with Multistep Soft Reasoning
+
+### Creating murder mysteries that require multi-step reasoning with commonsense using ChatGPT!
+By: Zayne Sprague, Xi Ye, Kaj Bostrom, Swarat Chaudhuri, and Greg Durrett.
+
+zayne@utexas.edu {xi, kaj, swarat, gdurrett}@cs.utexas.edu
+
+<image src="./imgs/system_diagram.png"></image>
+
+An overview of our dataset creation algorithm.
+
+## Overview
+
+This repository holds the code for the paper _MuSR: Testing the Limits of Chain-of-thought with Multistep Soft Reasoning_
+
+All MuSR datsets can be found in `{project_root}/output_datasets`. Follow the installation guide to get the datasets mentioned from the paper downloaded.
+
+Major components for making the MuSR dataset can be found in `{project_root}/src`.  Everything should be commented.
+Important classes and structures will have some example uses in their files (Madlib and LogicTree for example)
+
+The scripts used to create a dataset can be found in `{project_root}/musr_dataset_scripts`
+
+Evaluation scripts are in `{project_root}/evaluations`
+
+## Installation
+
+### Pre-requisite: Install Redis to enable caching! 
+
+There are tons of API calls to OpenAI and LLM calls that can be cached to make repeat runs faster.  To do this, we used [Redis](https://redis.io/docs/clients/python/)
+
+Easiest way to install it is (for linux)
+1. `apt-get install redis`
+2. `redis-server`
+
+Then you are ready to go!  Alternatively you can run our code without redis or disable the cache entirely by commenting out the lines `cache.enable()`.
+
+### Python intsall
+
+1. `virtualenv venv` we have tested with python 3.8
+2. `source venv/bin/activate`
+3. `pip install -r requirements.txt`
+4. `python ./install.py` (expect this to take a long time based on your internet speed)
+
+Step 4 will download all the datasets we used in the paper.  Step 4 also assumes you can use CuRL in the terminal, if not you can manually download the files here.
+
+[MuSR Murder Mystery](https://utexas.box.com/s/qfmhyuzyzayfr7vszfz6oue8smpi30np)
+
+[MuSR Object Placements](https://utexas.box.com/s/pd6uej3vji9geh992hjkgqo8hj6r4obo)
+
+[MuSR Team Allocation](https://utexas.box.com/s/caely78x5jskjy4wlln6vq51ebd9uw7g)
+
+Place each of those files in the `{project_root}/output_datasets` folder.
+
+You can see all the datasets that can be downloaded via
+`python ./install.py -s` 
+
+And you can install them individually via
+`python ./install.py -a musr_muder_mysteries ...etc`
+
+## Creating a dataset
+
+Every dataset creation script is in `{project_root}/musr_dataset_scripts`.  In those files are detailed instructions on how to create MuSR datasets as well as parameters for creating your own unique datasets!  Individual components that are used to create each dataset should be heavily documented as well.
+
+To run a script:
+
+```shell
+cd musr_dataset_scripts
+OPENAI_API_KEY=key python {dataset_script}.py
+```
+NOTE: We tested most of this with GPT-4.  It's possible that quality may significantly degrade if you use a different model due to the prompts being heavily tailored to GPT-4 as well as expecting the LLM to produce "good" outputs (some datasets require parsing of an output which requires strict formatting)
+
+This will produce a dataset file in `{project_root}/output_datasets` after it completes.
+
+## Evaluations
+
+To recreate the evaluations from the paper you will have to download the original datasets and run the evaluation script over them (which requires a minor code change to mention the new filenames.)
+
+To run the evaluation script:
+```shell
+cd evaluations
+OPENAI_API_KEY=key python eval.py
+```
+
+You can edit the functionality of the evaluation in eval.py as well (including different prompting strategies, models, and more).
+
+## Creating your own dataset
+
+If you want to learn how to make your own datasets in a new domain I suggest you begin studying the DatasetBuilder class.  Then pick one domain (like Murder Mysteries) and see how we implemented it for that domain.
+
+Important files (if you wanted to look at how murder mysteries works):
+
+`{project_root}/src/dataset_builder.py`: The main file used for creating datasets (including the recursive reasoning tree expansion algorithm).
+
+`{project_root}/src/dataset_types/murder_mystery_dataset.py`: Specific logic (and some prompts) for creating the murder mysteries.
+
+`{project_root}/musr_dataset_scripts/create_murder_mysteries.py`: The main file that glues everything together (and includes some more prompts). 
