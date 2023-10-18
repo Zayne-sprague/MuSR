@@ -1,5 +1,5 @@
 """
-WARNING (or more like an agressive note).
+WARNING (or more like an aggressive note).
 
 A lot of functionality was implemented here for earlier experiments.  Most of which is not used.  We have left it here
 for backwards compatability with the current dataset as well as because why not.
