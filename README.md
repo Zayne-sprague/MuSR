@@ -7,34 +7,26 @@ zayne@utexas.edu {xi, kaj, swarat, gdurrett}@cs.utexas.edu
 
 <image src="./imgs/logo.png"></image>
 
-An overview of our dataset creation algorithm.
-
 ## MuSR Eval
 
-### Install the dependencies and download the data
+The datasets are in `datasets/{domain_name}.json`
+
+### Install
 
 1. `virtualenv venv` we have tested with python 3.8
 2. `source venv/bin/activate`
 3. `pip install -r requirements.txt`
-4. `python ./install.py` (expect this to take a long time based on your internet speed)
 
-Step 4 will download all the datasets we used in the paper.  
+### Evaluate
 
-You can see all the datasets that can be downloaded via
-`python ./install.py -s` 
 
-And you can install them individually via
-`python ./install.py -a musr_muder_mysteries ...etc`
+To run the evaluation script on the MuSR datasets:
+```shell
+cd eval
+OPENAI_API_KEY=key python eval.py
+```
 
-Step 4 also assumes you can use CuRL in the terminal, if not you can manually download the files here.
-
-[MuSR Murder Mystery](https://utexas.box.com/s/qfmhyuzyzayfr7vszfz6oue8smpi30np)
-
-[MuSR Object Placements](https://utexas.box.com/s/pd6uej3vji9geh992hjkgqo8hj6r4obo)
-
-[MuSR Team Allocation](https://utexas.box.com/s/caely78x5jskjy4wlln6vq51ebd9uw7g)
-
-Place each of those files in the `{project_root}/output_datasets` folder.
+You can edit the functionality of the evaluation in eval.py as well (including different prompting strategies, models, and more).
 
 ### [Optional] Install Redis for caching  
 
@@ -47,19 +39,6 @@ Easiest way to install it is (for linux)
 2. `redis-server`
 
 Alternatively you can run our code without redis or disable the cache entirely by commenting out the lines `cache.enable()`.
-
-### Evaluate
-
-
-To recreate the evaluations from the paper you will have to download the original datasets and run the evaluation script over them (which requires a minor code change to mention the new filenames.)
-
-To run the evaluation script:
-```shell
-cd eval
-OPENAI_API_KEY=key python eval.py
-```
-
-You can edit the functionality of the evaluation in eval.py as well (including different prompting strategies, models, and more).
 
 ### New models
 
@@ -79,7 +58,7 @@ These are easily added to the `eval/eval.py` file.
 
 This repository holds the code for the paper _MuSR: Testing the Limits of Chain-of-thought with Multistep Soft Reasoning_
 
-All MuSR datsets can be found in `{project_root}/output_datasets`. Follow the installation guide to get the datasets mentioned from the paper downloaded.
+All MuSR datsets can be found in `{project_root}/datasets`. Follow the installation guide to get the datasets mentioned from the paper downloaded.
 
 Major components for making the MuSR dataset can be found in `{project_root}/src`.  
 
@@ -102,7 +81,7 @@ OPENAI_API_KEY=key python {dataset_script}.py
 ```
 NOTE: We tested most of this with GPT-4.  It's possible that quality may significantly degrade if you use a different model due to the prompts being heavily tailored to GPT-4 as well as expecting the LLM to produce "good" outputs (some datasets require parsing of an output which requires strict formatting)
 
-This will produce a dataset file in `{project_root}/output_datasets` after it completes.
+This will produce a dataset file in `{project_root}/datasets` after it completes.
 
 ## Creating your own dataset
 

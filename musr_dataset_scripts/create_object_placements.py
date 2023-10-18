@@ -6,7 +6,7 @@ Go to the main() function for arguments/control over the dataset creation.
 NOTE: Expects your openai api key to be in the environment.  "OPENAI_API_KEY=api_key python script.py" (if you are using
 openai LLMs)
 
-NOTE: By default, datasets go into "{ROOT_FOLDER}/output_datasets/{dataset_name}.json"
+NOTE: By default, datasets go into "{ROOT_FOLDER}/datasets/{dataset_name}.json"
 """
 
 import json
@@ -101,7 +101,7 @@ def main():
 
     # PARAMS (if not with a comment, look at the Object Placements dataset class for more info.)
 
-    out_file = OUTPUT_FOLDER / 'object_placements.json'
+    out_file = OUTPUT_FOLDER / 'custom_object_placements.json'
     if out_file:
         out_file.parent.mkdir(exist_ok=True, parents=True)
 

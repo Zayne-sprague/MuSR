@@ -6,7 +6,7 @@ Go to the main() function for arguments/control over the dataset creation.
 NOTE: Expects your openai api key to be in the environment.  "OPENAI_API_KEY=api_key python script.py" (if you are using
 openai LLMs)
 
-NOTE: By default, datasets go into "{ROOT_FOLDER}/output_datasets/{dataset_name}.json"
+NOTE: By default, datasets go into "{ROOT_FOLDER}/datasets/{dataset_name}.json"
 """
 
 import copy
@@ -136,7 +136,7 @@ def main():
 
     use_validators = True
 
-    out_file = OUTPUT_FOLDER / 'murder_mysteries.json'
+    out_file = OUTPUT_FOLDER / 'custom_murder_mysteries.json'
     if out_file:
         out_file.parent.mkdir(exist_ok=True, parents=True)
 
