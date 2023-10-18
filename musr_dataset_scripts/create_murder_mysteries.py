@@ -155,15 +155,15 @@ def main():
 
     madlib = Madlib(
         {
-            "male_names": ROOT_FOLDER / 'data/male_names.json',
-            "female_names": ROOT_FOLDER / 'data/female_names.json',
-            "male_relationships": ROOT_FOLDER / 'data/male_relationships.json',
-            "female_relationships": ROOT_FOLDER / 'data/female_relationships.json',
-            "motives": ROOT_FOLDER / 'data/strong_motives.json',
-            "murder_weapons": ROOT_FOLDER / 'data/murder_weapons.json',
-            "relationships": ROOT_FOLDER / 'data/relationships.json',
-            "crime_scenes": ROOT_FOLDER / 'data/crime_scenes.json',
-            'red_herrings': ROOT_FOLDER / 'data/suspicious_facts.json',
+            "male_names": ROOT_FOLDER / 'domain_seed/male_names.json',
+            "female_names": ROOT_FOLDER / 'domain_seed/female_names.json',
+            "male_relationships": ROOT_FOLDER / 'domain_seed/male_relationships.json',
+            "female_relationships": ROOT_FOLDER / 'domain_seed/female_relationships.json',
+            "motives": ROOT_FOLDER / 'domain_seed/strong_motives.json',
+            "murder_weapons": ROOT_FOLDER / 'domain_seed/murder_weapons.json',
+            "relationships": ROOT_FOLDER / 'domain_seed/relationships.json',
+            "crime_scenes": ROOT_FOLDER / 'domain_seed/crime_scenes.json',
+            'red_herrings': ROOT_FOLDER / 'domain_seed/suspicious_facts.json',
         }
     )
 

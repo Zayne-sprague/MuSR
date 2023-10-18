@@ -39,11 +39,11 @@ if __name__ == "__main__":
 
     madlib = Madlib(
         {
-            "names": ROOT_FOLDER / 'data/names.json',
-            "motives": ROOT_FOLDER / 'data/motives.json',
-            "murder_weapons": ROOT_FOLDER / 'data/murder_weapons.json',
-            "relationships": ROOT_FOLDER / 'data/relationships.json',
-            "crime_scenes": ROOT_FOLDER / 'data/crime_scenes.json'
+            "names": ROOT_FOLDER / 'domain_seed/names.json',
+            "motives": ROOT_FOLDER / 'domain_seed/motives.json',
+            "murder_weapons": ROOT_FOLDER / 'domain_seed/murder_weapons.json',
+            "relationships": ROOT_FOLDER / 'domain_seed/relationships.json',
+            "crime_scenes": ROOT_FOLDER / 'domain_seed/crime_scenes.json'
         }
     )
 
