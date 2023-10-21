@@ -351,19 +351,19 @@ document.getElementById("submitButton").addEventListener("click", function() {
 
 
 // Load data from JSON file
-fetch('../datasets/murder_mystery.json')
+fetch('datasets/murder_mystery.json')
     .then(response => response.json())
     .then(jsonData => {
         data.mysteries = jsonData;
     });
 
-fetch('../datasets/object_placements.json')
+fetch('datasets/object_placements.json')
     .then(response => response.json())
     .then(jsonData => {
         data.placements = jsonData;
     });
 
-fetch('../datasets/team_allocation.json')
+fetch('datasets/team_allocation.json')
     .then(response => response.json())
     .then(jsonData => {
         data.allocation = jsonData;
