@@ -1,0 +1,497 @@
+/* Base Styles */
+body, html {
+    font-family: Arial, sans-serif;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    height: calc(100% - 131px);
+    margin-top: 131px;
+}
+
+.sidebar {
+    flex-basis: 20%;
+    margin-right: 3%;
+    padding: 20px 0;
+    overflow-y: scroll;
+    transition: all 0.3s ease-in-out;
+    transform: translateX(0);
+    color: #e2e2e2;
+
+}
+
+.sidebar.collapsed {
+    transform: translateX(calc(-100% + 34px));
+}
+
+.sidebar-content {
+    border: solid 1px #ccc;
+    overflow-y: scroll;
+    height: 100%;
+    width: calc(100% - 35px);
+    background-color: #2a2a2a;
+    margin-left: -1px;
+}
+
+.sidebar a {
+    color: #e2e2e2;
+    text-decoration: none;
+}
+
+.sidebar a:hover {
+    color: #f5a623;
+}
+
+.content {
+    flex-basis: 70%;
+    padding: 30px;
+    padding-top: 0px;
+    display: flex;
+    flex-direction: column;
+    /*overflow-y: scroll;*/
+    flex-grow: 1; /* This ensures the main content takes up any remaining space */
+}
+
+.content.sidebarcollapsed {
+    flex-bottom: 90%;
+    /*margin-left: 5%;*/
+}
+
+
+
+
+body, html {
+    font-family: Arial, sans-serif;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+
+
+.category {
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.items {
+    display: none;
+}
+
+.panel {
+    flex: 3;
+    border: 1px solid #ccc;
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    background-color: #fff;
+    min-height: 30%;
+    /*height: 33%;*/
+}
+
+.panel .expand-btn {
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    background-color: #f5f5f5;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: left;
+    border-bottom: 1px solid #e1e1e1;
+    height: 40px;
+}
+.panel .content {
+    padding: 15px;
+    overflow-y: scroll;
+
+}
+
+
+.story_panel .outer{
+    height: calc(100% - 40px);
+
+    overflow-y: scroll;
+}
+
+.tree_panel .outer{
+    height: calc(100% - 40px);
+
+    overflow-y: scroll;
+}
+
+.tree_panel .content{
+    overflow-y: visible;
+}
+
+.panel.story_panel .content{
+    /*background-image: url('../imgs/paper.jpeg');*/
+    /*background-repeat: repeat;*/
+    min-height: calc(100% - 30px);
+    overflow-y: visible;
+    /*text-shadow: 1px 1px 1px rgba(0,0,0,0.1);*/
+    font-family: 'Courier New', sans-serif;
+    line-height: 1.5; /* adjust as needed */
+    letter-spacing: 0.5px; /* adjust as needed */
+    color: #333; /* or another dark gray */
+}
+
+.panel .content.story {
+    padding: 15px;
+}
+
+.one_third {
+    flex: 1;
+}
+
+.two_third {
+    flex: 2;
+}
+
+/* Responsive for Mobile */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar, .content {
+        flex-basis: 100%;
+    }
+
+    .selected-title p {
+        text-wrap: nowrap;
+    }
+}
+
+/* This will style your fullscreen mode */
+.fullscreen {
+    position: fixed;
+    margin:0;
+    padding:0;
+    top: 131px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    background: white;
+    overflow: auto;
+    animation: expandAnimation 0.5s ease-in-out both;
+    width: 100vw;
+    height: calc(100vh - 131px);
+}
+
+@keyframes expandAnimation {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Style for the button that appears in fullscreen mode */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    /* Add additional styling for your close button here (colors, dimensions, etc.) */
+}
+
+header {
+    background-color: #252525; /* Darker tone for the header */
+    border-bottom: 3px solid crimson; /* Hint of crimson for the murder mystery theme */
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    /*background-color: #fff;*/
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;  /* Ensures the header is always on top */
+    height: 100px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.logo-title {
+    display: flex;
+    align-items: center;
+    font-family: 'Times New Roman', Times, serif; /* More formal font choice */
+}
+#logo {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+}
+
+h1 {
+    color: #fff; /* White text for contrast against dark header */
+    font-size: 24px;
+    margin: 0;
+}
+
+.nav-btn[disabled] {
+    opacity: 0.5;
+}
+
+.nav-btn {
+    background-color: crimson; /* Darker red for the buttons */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: 'Times New Roman', Times, serif; /* More formal font choice */
+}
+.nav-btn:hover {
+    background-color: #b22222; /* Slightly darker red on hover */
+}
+
+.nav-btn:disabled {
+    background-color: #7F8C8D;
+    cursor: not-allowed;
+}
+
+/* For Paper and Github links */
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 15px;
+    font-size: 14px;
+    font-family: 'Times New Roman', Times, serif; /* More formal font choice */
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: crimson; /* Hint of crimson on hover */
+}
+
+
+/*.link-btn {*/
+/*    margin-left: 15px;*/
+/*    color: #BDC3C7;*/
+/*    text-decoration: none;*/
+/*    padding: 5px 10px;*/
+/*    border: 1px solid #BDC3C7;*/
+/*    border-radius: 5px;*/
+/*    transition: color 0.2s, background-color 0.2s;*/
+/*}*/
+
+/*.link-btn:hover {*/
+/*    background-color: #BDC3C7;*/
+/*    color: #2C3E50;*/
+/*}*/
+
+
+.sidebar {
+    flex-basis: 22%;
+    padding-right: 35px;
+    margin-right: 3%;
+    margin-top: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    position: relative;
+    overflow-y: scroll;
+
+    transition: all 3s linear;
+
+    overflow: hidden; /* This ensures the content inside the sidebar isn't visible */
+
+    transform: translateX(0); /* End position: expanded */
+    transition: transform 0.3s; /* Animation duration */
+}
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        left: 0;
+        right: 0;
+        height: 100vh;
+        z-index: 999;
+        margin: 0;
+    }
+    #toggle-sidebar {
+        top: 100%;
+        left: 1%;
+    }
+
+    .content{
+            height: 100%;
+    }
+}
+.category{
+    list-style-type: none;
+    color: #f0f0f0; /* Maintaining the light color text for contrast */
+    padding: 8px 0;
+    border-bottom: 1px dashed crimson; /* Dashed crimson border between items */
+    transition: background-color 0.3s linear;
+    padding: 15px;
+}
+
+.category:hover {
+    background-color: #454545; /* Slight gray tone on hover */
+    color: crimson; /* Text turns crimson on hover */
+}
+
+.sidebar-content{
+    background-color: #333; /* Dark tone for the sidebar */
+    border-right: 2px solid crimson; /* Crimson border for a hint of theme */
+    color: #f0f0f0; /* Lighter text for contrast */
+    font-family: 'Times New Roman', Times, serif; /* More formal font choice */
+
+    overflow-y: scroll;
+    height:100%;
+    width: calc(100%);
+    flex-basis: 20%;
+}
+
+.sidebar.collapsed{
+    overflow: hidden; /* This ensures the content inside the sidebar isn't visible */
+    flex-basis: 0;
+    transform: translateX(calc(-100% + 33px)); /* Start position: collapsed */
+
+    /*transition: all 3s ease-in-out;*/
+    /*transition: transform 0.3s ease-in-out;*/
+    transition: all 0.3s ease-in-out;
+
+
+}
+
+.sidebar.collapsed .sidebar-content{
+    overflow: hidden;
+    white-space: nowrap;
+    /*padding: 0px;*/
+    /*transition: padding 0.0s linear 0.2s;*/
+
+}
+
+
+#toggle-sidebar {
+    position: absolute;
+    top: 20px;
+    left: calc(100% - 36px);
+    background: #333;
+    border: 2px solid crimson;
+    border-left: 2px solid #333;
+    cursor: pointer;
+    font-size: 24px;
+    z-index: 999;
+    width: 35px;
+    color: #ccc;
+
+}
+
+#toggle-sidebar:hover{
+    background-color: #454545; /* Slight gray tone on hover */
+    color: crimson; /* Text turns crimson on hover */
+}
+
+.items .item {
+    list-style-type: none;
+    background-color: #2c3e50; /* Dark background for contrast */
+    color: #ecf0f1; /* Light text color */
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.2s ease;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.items .item:hover {
+    background-color: #34495e; /* Slightly lighter on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.items .item.selected{
+    background-color: #455A6F; /* Slightly lighter on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid crimson;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    z-index: 3000;
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#fileInput, #datasetTitle {
+    display: block;
+    margin: 10px 0;
+    padding: 8px;
+    width: 80%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#submitButton {
+    padding: 8px 12px;
+    background-color: #228B22; /* Forest Green */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#submitButton:hover {
+    background-color: #98FB98; /* Pale Green */
+}
+
+.additional-links{
+    margin-left: 20px;
+}
+
+.additional-links a{
+    padding: 5px;
+}
+
+.selected-title {
+    margin-top: 20px;
+    padding: 10px 0;
+    font-size: 1.5em;
+    text-align: center;
+    color: #333;
+    border-bottom: 2px solid #ccc;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+.selected-title p{
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}
+

@@ -1,0 +1,418 @@
+/* simple tree */
+.simple-tree {
+  user-select: none;
+  -moz-user-select: none;
+}
+.simple-tree>details>summary {
+  display: none;
+}
+.simple-tree a,
+.simple-tree summary {
+  display: block;
+  width: fit-content;
+  width: -moz-fit-content;
+  border: solid 1px transparent;
+  padding: 0 2px;
+  outline: none;
+  cursor: pointer;
+    margin: 10px 0px 10px 0px;
+}
+.simple-tree a {
+  text-decoration: none;
+  color: inherit;
+}
+.simple-tree ::-webkit-details-marker {
+  display: none;
+}
+.simple-tree summary {
+  list-style-type: none;
+  background-color: #eee;
+  outline: none;
+}
+.simple-tree.dark summary {
+  background-color: #444;
+}
+.simple-tree details>:not(details),
+.simple-tree details {
+  position: relative;
+}
+.simple-tree details :not(summary) {
+  margin-left: 20px;
+}
+.simple-tree.nodots details :not(summary) {
+  margin-left: 12px;
+}
+.simple-tree details::before,
+.simple-tree details>:not(details)::before {
+  content: '';
+  width: 10px;
+  display: block;
+  position: absolute;
+}
+.simple-tree details::before,
+.simple-tree details>:not(details)::before {
+    /* Line svg*/
+  background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 2 2" xmlns="http://www.w3.org/2000/svg"><g><rect x="0" y="0" width="1" height="1"/></g></svg>') left top / 2px 2px;
+}
+.simple-tree.dark details::before,
+.simple-tree.dark details>:not(summary)::before {
+  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 2 2" xmlns="http://www.w3.org/2000/svg"><g><rect x="0" y="0" width="1" height="1" fill="white"/></g></svg>');
+}
+.simple-tree.nodots details::before,
+.simple-tree.nodots details>:not(summary)::before {
+  background-image: none;
+}
+.simple-tree details::before {
+  top: 0;
+  height: 100%;
+  background-repeat: repeat-y;
+  left: 5px;
+  /*z-index: -1;*/
+}
+.simple-tree details>:not(details)::before {
+  top: 8px;
+  height: calc(100% - 8px);
+  background-repeat: repeat-x;
+  left: 5px;
+}
+.simple-tree details>summary::before {
+  /*background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><g><rect x="0" y="0" width="12" height="12" fill="white" stroke="gray" stroke-width="1"/><line x1="3" y1="6" x2="9" y2="6" stroke="black" stroke-width="2"/><line x1="6" y1="3" x2="6" y2="9" stroke="black" stroke-width="2"/></g></svg>') center center / 12px 12px no-repeat;*/
+    left: -15px;
+    top: 11px;
+    width: 8px;
+    height: 16px;
+}
+.simple-tree details[open]>summary::before {
+  /*background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><title/><g><rect x="0" y="0" width="12" height="12" fill="white" stroke="gray" stroke-width="1"/><line x1="3" y1="6" x2="9" y2="6" stroke="black" stroke-width="2"/></g></svg>');*/
+}
+/* async tree */
+.async-tree details[open][data-loaded=false] {
+  pointer-events: none;
+}
+.async-tree details[open][data-loaded=false]>summary::before {
+  /*background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g><animateTransform attributeName="transform" type="rotate" from="0 32 32" to="360 32 32" dur="1s" repeatCount="indefinite"/><circle cx="32" cy="32" r="32" fill="whitesmoke"/><path d="M 62 32 A 30 30 0 0 0 32 2" style="stroke: black; stroke-width:6; fill:none;"/></g></svg>');*/
+}
+.async-tree.black details[open][data-loaded=false]>summary::before {
+  /*background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g><animateTransform attributeName="transform" type="rotate" from="0 32 32" to="360 32 32" dur="1s" repeatCount="indefinite"/><circle cx="32" cy="32" r="32" fill="whitesmoke"/><path d="M 62 32 A 30 30 0 0 0 32 2" style="stroke: white; stroke-width:6; fill:none;"/></g></svg>');*/
+}
+/* select tree */
+.select-tree .selected {
+  background-color: #beebff;
+  border-color: #99defd;
+  z-index: 1;
+}
+
+.select-tree.dark .selected {
+  background-color: #3a484e;
+  border-color: #99defd;
+}
+
+.simple-tree details>:not(details):last-child::before{
+  /*background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 2 2" xmlns="http://www.w3.org/2000/svg"><g><rect x="0" y="0" width="1" height="1"/></g></svg>') left top / 2px 2px*/
+}
+.simple-tree details:first-child::before{
+  /*background: transparent;*/
+}
+.simple-tree details:first-child summary::before{
+  /*background: transparent;*/
+}
+
+
+.simple-tree details>summary::before{
+    left: -54px;
+    top: 50%;
+    width: 32px;
+    height: 50%;
+}
+
+.simple-tree details .tree_container::before{
+    /*background-image: none;*/
+    /*background: 'url(data:image/svg+xml;utf8,<svg viewBox="0 0 2 2" xmlns="http://www.w3.org/2000/svg"><g><rect x="0" y="0" width="1" height="1"/></g></svg>) left top / 2px 2px';*/
+    background-repeat: repeat-y;
+    top: 14px;
+    height: calc(100% - 14px);
+}
+
+.simple-tree details .tree_container:last-child::after{
+    /*background-image: none;*/
+    /*background: 'url(data:image/svg+xml;utf8,<svg viewBox="0 0 2 2" xmlns="http://www.w3.org/2000/svg"><g><rect x="0" y="0" width="1" height="1"/></g></svg>) left top / 2px 2px';*/
+    /*background-repeat: repeat-y;*/
+    /*top: 14px;*/
+    /*height: calc(100% - 3px);*/
+    /*content: '';*/
+    display: block;
+    width: 10px;
+    height: calc(100% - 20px);
+    position: absolute;
+    background: white;
+    top: 20px;
+    left: -18px;
+}
+
+.simple-tree details  > summary > .summary_container::before{
+    content: '';
+    display: block;
+    width: 10px;
+    height: 50%;
+    position: absolute;
+    background: white;
+    top: 0px;
+    left: -18px;
+    z-index: 1;
+}
+
+details:last-child > summary > .summary_container::after{
+    content: '';
+    display: block;
+    width: 10px;
+    height: 50%;
+    position: absolute;
+    background: white;
+    top: 0px;
+    left: -20px;
+    z-index: 1;
+}
+
+details > summary > .summary_container::after{
+    content: '';
+    display: block;
+    width: 10px;
+    height: calc(50% + 20px);
+    position: absolute;
+    background: white;
+    top: calc(50% + 2px);
+    left: -20px;
+    z-index: 1;
+}
+
+.simple-tree details:last-child  > summary > .summary_container::before{
+    content: '';
+    display: block;
+    width: 10px;
+    height: calc(100% + 10px);
+    position: absolute;
+    background: white;
+    top: calc(50% + 1px);
+    left: -58px;
+    z-index: 1;
+}
+
+.simple-tree details:last-child  > .tree_container > .file_wrapper::after{
+    content: '';
+    display: block;
+    width: 10px;
+    height: 50%;
+    position: absolute;
+    background: white;
+    top: calc(50% + 1px);
+    left: -58px;
+    z-index: 1;
+}
+
+.simple-tree details:last-child > .tree_container.files > .file_wrapper::after{
+    background: transparent;
+}
+
+.simple-tree details > .tree_container.files > .file_wrapper:last-child::after{
+    content: '';
+    display: block;
+    width: 10px;
+    height: calc(53% + 10px);
+    position: absolute;
+    background: white;
+    top: calc(50% + 1px);
+    left: -58px;
+    z-index: 1;
+}
+
+.simple-tree details > .tree_container > .file_wrapper:last-child > a::after{
+    content: '';
+    display: block;
+    width: 10px;
+    height: 100%;
+    position: absolute;
+    background: white;
+    top: 0px;
+    left: -18px;
+    z-index: 1;
+}
+
+.simple-tree details > .tree_container > .file_wrapper:last-child > a::before{
+    content: '';
+    display: block;
+    width: 10px;
+    height: calc(50% + 10px);
+    position: absolute;
+    background: white;
+    top: 50%;
+    left: -58px;
+    z-index: 1;
+}
+
+
+
+
+.simple-tree details:last-child > .tree_container::after{
+    content: '';
+    display: block;
+    width: 10px;
+    height: calc(100% + 20px);
+    position: absolute;
+    background: white;
+    top: 0px;
+    left: -80px;
+    z-index: 1;
+}
+
+.tree_container  .file_wrapper{
+    position: relative;
+}
+
+.tree_container  .file_wrapper::before{
+    content: '';
+    background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 2 2" xmlns="http://www.w3.org/2000/svg"><g><rect x="0" y="0" width="1" height="1"/></g></svg>') left top / 2px 2px;
+    background-repeat: repeat-x;
+    left: -53px;
+    top: 50%;
+    width: 54px;
+    height: 50%;
+    display: block;
+    position: absolute;
+    z-index: 10;
+}
+
+.simple-tree details .tree_container.files::before{
+    background-image: none;
+}
+
+
+.tree_container.files  .file_wrapper::before{
+    content: '';
+    background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 2 2" xmlns="http://www.w3.org/2000/svg"><g><rect x="0" y="0" width="1" height="1"/></g></svg>') left top / 2px 2px;
+    background-repeat: repeat-x;
+    left: -53px;
+    top: 50%;
+    width: 38px;
+    height: 50%;
+    display: block;
+    position: absolute;
+}
+
+.simple-tree details::before{
+    background-image: none;
+}
+
+.simple-tree details>a::before{
+    left: -34px;
+    width: 30px;
+    top: 50%;}
+
+/*.simple-tree .tree_container  details:last-child::after{*/
+.simple-tree .tree_container::after{
+    /*content: '';*/
+    display: block;
+    width: 10px;
+    height: calc(100% - 20px);
+    position: absolute;
+    background: white;
+    top: 20px;
+    left: -18px;
+}
+
+.simple-tree details a:last-child::after{
+    /*content: '';*/
+    display: block;
+    width: 10px;
+    height: calc(100% - 8px);
+    position: absolute;
+    background: white;
+    top: 9px;
+    left: -18px;
+}
+
+details > summary {
+    list-style-type: none;
+    position: relative;
+}
+
+.simple-tree details > summary::before {
+}
+
+.simple-tree details > summary::after {
+    content: ''; /* empty content */
+    position: absolute;
+    left: -22px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    border: 2px solid crimson;
+    border-radius: 50%; /* makes it a circle */
+    background-color: crimson; /* circle is not filled by default */
+    background-image: none;
+    z-index: 100;
+}
+
+details[open] > summary::after {
+    background-color: #333; /* circle is filled when details are open */
+    border: 2px solid #333;
+
+}
+
+details, a {
+    font-family: 'Arial', sans-serif;
+    margin-left: 20px;
+    line-height: 1.6;
+    font-size: 1rem;
+    color: #333;
+}
+
+details > summary {
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+details > summary:hover {
+    background-color: #f5f5f5;
+}
+
+.simple-tree a {
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+.simple-tree a, .simple-tree summary_container{
+    text-align: center; /* Center text */
+    margin-left: 0px !important;;
+    background-color: #eee;
+    border-radius: 5px;
+    text-underline: none;
+}
+.simple-tree details :not(summary) .summary_container{
+    margin-left: 0px;
+}
+
+.simple-tree a:link {
+      text-decoration: none;
+}
+
+.simple-tree a:visited {
+      text-decoration: none;
+}
+
+.simple-tree a:hover {
+      text-decoration: none;
+}
+
+.simple-tree a:active {
+      text-decoration: none;
+}
+
+details:not(details:last-child) > summary > .summary_container:first-child::after{
+    background: white;
+}
+details[open]:not(details[open]:last-child) > summary > .summary_container:first-child::after {
+    background: transparent;
+}

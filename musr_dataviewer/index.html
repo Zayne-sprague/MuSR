@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive UI</title>
+    <link rel="stylesheet" href="treevis/tree.css">
+    <script src="treevis/tree.js"></script>
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+<header>
+    <div class="logo-title">
+        <img src="../imgs/logo.png" alt="Logo" id="logo">
+        <h1>MuSR</h1>
+    </div>
+    <nav>
+        <button class="nav-btn" id="story-btn" disabled>Story</button>
+        <button class="nav-btn" id="tree-btn" disabled>Tree</button>
+        <div class="additional-links">
+            <a target="_blank" href="#paper-link" class="link-btn">Paper</a>
+            <a target="_blank" href="https://github.com/Zayne-sprague/MuSR/tree/main" class="link-btn">Github</a>
+        </div>
+    </nav>
+</header>
+
+
+    <div class="container">
+
+        <div class="sidebar expand">
+            <button id="toggle-sidebar">☰</button>
+
+            <div class="sidebar-content">
+                <div class="category" data-category="mysteries">
+                    <h2>Murder Mysteries</h2>
+                    <div class="items"></div>
+                </div>
+                <div class="category" data-category="placements">
+                    <h2>Object Placements</h2>
+                    <div class="items"></div>
+                </div>
+                <div class="category" data-category="allocation">
+                    <h2>Team Allocation</h2>
+                    <div class="items"></div>
+                </div>
+                <div class="category" data-category="custom" id="madeYourOwnButton">
+                    <h2>Made Your Own? Upload it!</h2>
+                    <div class="items"></div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="content">
+<!--            <div class="selected-title"></div>-->
+            <div class="panel story_panel">
+                    <button class="expand-btn">Expand Story Window</button>
+                    <div class="outer"><div class="content story"></div></div>
+            </div>
+            <div class="panel tree_panel">
+                    <button class="expand-btn">Expand Tree View</button>
+                    <div class="outer"><div class="content"  id="treevis"></div></div>
+            </div>
+
+        </div>
+    </div>
+    <div id="uploadModal" class="modal">
+        <div class="modal-content" id="modal_content">
+            <h2>Upload Your Dataset</h2>
+            <input type="file" id="fileInput" accept=".json">
+            <input type="text" id="datasetTitle" placeholder="Dataset Title">
+            <button id="submitButton">Submit</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+
+</body>
+</html>
