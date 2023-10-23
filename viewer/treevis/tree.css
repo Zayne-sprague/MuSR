@@ -360,7 +360,9 @@ details[open] > summary::after {
 }
 
 details, a {
-    font-family: 'Arial', sans-serif;
+    /*font-family: 'Arial', sans-serif;*/
+    font-family: Calibri, Sans-Serif;
+
     margin-left: 20px;
     line-height: 1.6;
     font-size: 1rem;

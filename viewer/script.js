@@ -11,6 +11,12 @@ const loaded = {
     allocation: false
 }
 
+const loaded_all = {
+    mysteries: false,
+    placements: false,
+    allocation: false
+}
+
 var selected_item_elem = null;
 
 function t(q, n) {
@@ -105,6 +111,10 @@ function category_click(category){
             return
         }
 
+        if (!category.classList.contains("loading_content")){
+            category.classList.add('loading_content')
+        }
+
         loaded[categoryType] = true
 
         const items = data[categoryType];
@@ -122,7 +132,40 @@ function category_click(category){
             }
             itemsHTML += '</div>'
         });
+
+        if ((categoryType == 'mysteries' && !loaded_all.mysteries) ||
+            (categoryType == 'placements' && !loaded_all.placements) ||
+            (categoryType == 'allocation' && !loaded_all.allocation) ){
+            itemsHTML += '<div class="load_all">Load All</div>'
+        }
         itemsDiv.innerHTML = itemsHTML + '';
+
+        const load_all = category.querySelector('.load_all');
+        if (load_all){
+            load_all.addEventListener('click', e => {
+
+                var p = null;
+                if (categoryType == 'mysteries'){
+                    p = load_all_mysteries();
+                }else if (categoryType == 'placements'){
+                    p = load_all_ops();
+                }else if (categoryType == 'allocation'){
+                    p = load_all_tas();
+                }
+                else{
+                    return
+                }
+
+                category.classList.add('loading_content')
+
+                p.finally(()=>{
+                    loaded[categoryType] = false;
+                    loaded_all[categoryType] = true
+                    category_click(category);
+                })
+
+            })
+        }
 
         const item_divs = category.querySelectorAll('.item');
         item_divs.forEach(i => {
@@ -176,9 +219,15 @@ function category_click(category){
 
 
             })
+
         })
+
+        category.classList.remove('loading_content')
+
     } catch {
         const categoryType = category.getAttribute('data-category');
+        category.classList.remove('loading_content')
+
         loaded[categoryType] = false
     }
 
@@ -351,19 +400,44 @@ document.getElementById("submitButton").addEventListener("click", function() {
 
 
 // Load data from JSON file
-fetch('datasets/murder_mystery.json')
+function load_all_mysteries(){
+   return fetch('datasets/murder_mystery.json')
+    .then(response => response.json())
+    .then(jsonData => {
+        return data.mysteries = jsonData;
+    });
+}
+
+function load_all_ops(){
+   return fetch('datasets/object_placements.json')
+    .then(response => response.json())
+    .then(jsonData => {
+        return data.placements = jsonData;
+    });
+
+}
+
+function load_all_tas(){
+   return fetch('datasets/team_allocation.json')
+    .then(response => response.json())
+    .then(jsonData => {
+        return data.allocation = jsonData;
+    });
+}
+
+fetch('viewer/small_datasets/small_murder_mystery.json')
     .then(response => response.json())
     .then(jsonData => {
         data.mysteries = jsonData;
     });
 
-fetch('datasets/object_placements.json')
+fetch('viewer/small_datasets/small_object_placements.json')
     .then(response => response.json())
     .then(jsonData => {
         data.placements = jsonData;
     });
 
-fetch('datasets/team_allocation.json')
+fetch('viewer/small_datasets/small_team_allocation.json')
     .then(response => response.json())
     .then(jsonData => {
         data.allocation = jsonData;
