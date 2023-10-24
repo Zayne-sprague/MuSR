@@ -342,6 +342,11 @@ h1 {
     transform: translateX(0); /* End position: expanded */
     transition: transform 0.3s; /* Animation duration */
 }
+@media (max-width: 375px) {
+    .logo-title h1{
+        font-size: 35px;
+    }
+}
 @media (max-width: 768px) {
     .sidebar {
         position: fixed;
