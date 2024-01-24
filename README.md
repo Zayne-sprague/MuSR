@@ -6,7 +6,8 @@ By: Zayne Sprague, Xi Ye, Kaj Bostrom, Swarat Chaudhuri, and Greg Durrett.
 zayne@utexas.edu {xi, kaj, swarat, gdurrett}@cs.utexas.edu
 
 View the dataset on our [project website](https://zayne-sprague.github.io/MuSR/)!
-Check out the [paper](https://arxiv.org/abs/2310.16049)
+
+Check out the [paper](https://arxiv.org/abs/2310.16049). Appearing at ICLR 2024 as a spotlight presentation!
 
 <image src="./imgs/logo.png"></image>
 
