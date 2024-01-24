@@ -6,6 +6,7 @@ By: Zayne Sprague, Xi Ye, Kaj Bostrom, Swarat Chaudhuri, and Greg Durrett.
 zayne@utexas.edu {xi, kaj, swarat, gdurrett}@cs.utexas.edu
 
 View the dataset on our [project website](https://zayne-sprague.github.io/MuSR/)!
+Check out the [paper](https://arxiv.org/abs/2310.16049)
 
 <image src="./imgs/logo.png"></image>
 
@@ -60,7 +61,7 @@ These are easily added to the `eval/eval.py` file.
 
 This repository holds the code for the paper _MuSR: Testing the Limits of Chain-of-thought with Multistep Soft Reasoning_
 
-All MuSR datsets can be found in `{project_root}/datasets`. Follow the installation guide to get the datasets mentioned from the paper downloaded.
+All MuSR datasets can be found in `{project_root}/datasets`. Follow the installation guide to get the datasets mentioned from the paper downloaded.
 
 Major components for making the MuSR dataset can be found in `{project_root}/src`.  
 
