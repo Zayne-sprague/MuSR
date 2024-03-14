@@ -26,7 +26,7 @@ The datasets are in `datasets/{domain_name}.json`
 
 To run the evaluation script on the MuSR datasets:
 ```shell
-cd eval
+cd musr_eval
 OPENAI_API_KEY=key python eval.py
 ```
 

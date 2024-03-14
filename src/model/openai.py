@@ -35,9 +35,9 @@ class OpenAIModel(Model):
 
     def __init__(
             self,
-            engine: str = 'text-davinci-003',
-            api_max_attempts: int = 60,
-            api_endpoint: str = 'completion',
+            engine: str = 'gpt-3.5-turbo',
+            api_max_attempts: int = 120,
+            api_endpoint: str = 'chat',
 
             temperature: float = 1.0,
             top_p: float = 1.0,
@@ -48,8 +48,8 @@ class OpenAIModel(Model):
             echo: bool = True,
 
             prompt_cost: float = None,
-            completion_cost: float = None
-
+            completion_cost: float = None,
+            **kwargs,
     ):
         """
 
@@ -83,7 +83,7 @@ class OpenAIModel(Model):
         self.temperature = temperature
         self.top_p = top_p
 
-        self.gpt_waittime = 60
+        self.gpt_waittime = 3
 
         self.prompt_cost = prompt_cost
         self.completion_cost = completion_cost
@@ -169,6 +169,12 @@ class OpenAIModel(Model):
             except openai.error.ServiceUnavailableError as e:
                 last_exc = e
                 print(f"ERROR: OPENAI Service Error: {e}")
+            except openai.error.InvalidRequestError as e:
+                if 'maximum context length' in e.error:
+                    if max_tokens > 1000:
+                        max_tokens *= 0.9
+                    else:
+                        raise e
         # make a fake response
         return {
                 "text": prompt + " OPENAI Error - " + str(last_exc),

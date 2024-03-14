@@ -75,14 +75,16 @@ class ForbiddenTextValidator(Validator):
         used_forbidden_words = []
         for word in self.forbidden_words:
             if isinstance(word, str):
+                # If it's just a word, check the deduction as is.
                 forbidden_word = word
             else:
+                # If it's a list, check if the conditional word appears in any parent nodes, then check the deduction.
                 conditional_text = word[0]
                 forbidden_word = word[1]
 
                 check_validity = False
 
-                p = template.parent
+                p = template
                 while p is not None:
                     if conditional_text.lower() in p.value.lower():
                         check_validity = True
@@ -91,7 +93,9 @@ class ForbiddenTextValidator(Validator):
 
                 if not check_validity:
                     continue
-            used_forbidden_words.append(forbidden_word)
+            if any([forbidden_word.lower() in x.lower() for x in explicit_facts]) or any(
+                    [forbidden_word.lower() in x.lower() for x in commonsense_facts]):
+                used_forbidden_words.append(forbidden_word)
         used_forbidden_words_str = '\n'.join([f'- {x}' for x in used_forbidden_words])
         reason_str = f'\nThe reason why we want to avoid using these is because {self.reason_why}' if self.reason_why else ''
         return f'''

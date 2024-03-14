@@ -17,9 +17,9 @@ from src.logic_tree.tree import LogicTree, LogicNode, LogicNodeFactType
 from src.madlib.madlib import Madlib
 from src.utils.paths import OUTPUT_FOLDER
 
-from eval.icl.murder_mystery_solved_ex import murder_mystery_solved_ex
-from eval.icl.object_placements_solved_ex import object_placements_solved_ex
-from eval.icl.team_allocation_solved_ex import team_allocation_solved_ex
+from musr_eval.icl.murder_mystery_solved_ex import murder_mystery_solved_ex
+from musr_eval.icl.object_placements_solved_ex import object_placements_solved_ex
+from musr_eval.icl.team_allocation_solved_ex import team_allocation_solved_ex
 
 
 def main():
@@ -40,7 +40,7 @@ def main():
     gpt35 = OpenAIModel(engine='gpt-3.5-turbo', api_endpoint='chat', api_max_attempts=30, temperature=1.0, max_tokens=700, num_samples=1, prompt_cost=0.0015/1000, completion_cost=0.002/1000)
 
     # NOTE: change the filenames as needed! (to point at whatever thing you want to test.  It is important to keep the system prompt/hint/etc. all the same for each specific type of domain though).
-    murder_mysteries = {'name': 'murder mysteries', 'file_name': 'murder_mysteries.json', 'ex': murder_mystery_solved_ex, 'system_prompt': 'You are a helpful assistant that will answer the questions given by the user.', 'hint': 'Before selecting a choice, explain your reasoning step by step. The murderer needs to have a means (access to weapon), motive (reason to kill the victim), and opportunity (access to crime scene) in order to have killed the victim. Innocent suspects may have two of these proven, but not all three. An innocent suspect may be suspicious for some other reason, but they will not have all of motive, means, and opportunity established.\n\nIf you believe that both suspects have motive, means, and opportunity, you should make an educated guess pick the one for whom these are best established. If you believe that neither suspect has all three established, then choose the suspect where these are most clearly established.'}
+    murder_mysteries = {'name': 'murder mysteries', 'file_name': 'murder_mystery__gpt3516k_v3.json', 'ex': murder_mystery_solved_ex, 'system_prompt': 'You are a helpful assistant that will answer the questions given by the user.', 'hint': 'Before selecting a choice, explain your reasoning step by step. The murderer needs to have a means (access to weapon), motive (reason to kill the victim), and opportunity (access to crime scene) in order to have killed the victim. Innocent suspects may have two of these proven, but not all three. An innocent suspect may be suspicious for some other reason, but they will not have all of motive, means, and opportunity established.\n\nIf you believe that both suspects have motive, means, and opportunity, you should make an educated guess pick the one for whom these are best established. If you believe that neither suspect has all three established, then choose the suspect where these are most clearly established.'}
     object_placements = {'name': 'object placements', 'file_name': 'object_placements.json', 'ex': object_placements_solved_ex, 'skip_ablated': True, 'system_prompt': 'You are a helpful assistant that will answer the questions given by the user.', 'ablation_depth_modifier': 2, 'hint': 'Based on this story, we want to identify where someone believes that a certain object is at the end of the story. In order to do that, you need to read the story and keep track of where they think the object is at each point. When an object is moved, the person may observe its new location if they saw it move.\n\nTo see where an object ends up, they must be able to see the location that it moves to and not be too distracted by what they are doing. If they do not observe the object moving, then they will still believe it to be in the last location where they observed it.', 'hint_before_question': True}
     team_allocation = {'name': 'team allocation', 'file_name': 'team_allocation.json', 'ex': team_allocation_solved_ex, 'system_prompt': 'You are a helpful assistant that will answer the questions given by the user.', 'hint': 'The story should allow you to determine how good each person is at a skill. Roughly, each person is either great, acceptable, or bad at a task. We want to find an optimal assignment of people to tasks that uses their skills as well as possible. In addition, one task will have to have two people assigned to it. The effectiveness of their teamwork (great team, acceptable team, or bad team) also impacts the overall quality of the assignment.\n\nWhen two people need to work on a task and one is bad at it, they don’t necessarily benefit from the other person being good, unless they work well together.\n\nWith different strengths, weaknesses, and interpersonal dynamics at play, you should allocate your team to find the single assignment to ensure that the tasks overall are completed as effectively as possible.\n\n'}
 
@@ -48,20 +48,20 @@ def main():
         # {'prompt': 'regular', 'name': 'regular'},
         # {'prompt': 'cot', 'name': 'cot'},
         {'prompt': 'cot+', 'name': 'cot+'},
-        # {'prompt': 'cot+', 'name': 'cot+ 1-shot', 'self_consistency_n': 1, 'use_example': True},
+        {'prompt': 'cot+', 'name': 'cot+ 1-shot', 'self_consistency_n': 1, 'use_example': True},
         # {'prompt': 'cot+', 'name': 'cot+ s.c.', 'self_consistency_n': 3},
         # {'prompt': 'cot+', 'name': 'cot+ s.c. 1-shot', 'self_consistency_n': 3, 'use_example': True},
     ]
 
     datasets_to_test = [
        murder_mysteries,
-       object_placements,
-       team_allocation
+       # object_placements,
+       # team_allocation
     ]
 
     models_to_test = [
         {'model': gpt4},
-        # {'model': gpt3516k},
+        {'model': gpt3516k},
         # {'model': gpt35},
         # {'model': HFModel('meta-llama/Llama-2-7b-hf', load_in_4bit=True), 'system_prompt_template': "{system_prompt}\n\n{prompt}"},
         # {'model': HFModel('meta-llama/Llama-2-7b-chat-hf', load_in_4bit=True), 'system_prompt_template': "<s>[INST] <<SYS>>\n{system_prompt}\n<</SYS>>\n{prompt}[/INST]"},
@@ -86,7 +86,7 @@ def main():
 
     datasets = {}
     run_data = {}
-    out_file = None # Can save results to a json file, should be a path object.
+    out_file = Path('./mm_gpt3516k_v3.json') # Can save results to a json file, should be a path object.
 
     run_cost = 0.0
 

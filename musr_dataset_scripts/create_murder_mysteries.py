@@ -18,7 +18,7 @@ import random
 random.seed(0)
 
 from src import cache
-from src.model import OpenAIModel
+from src.model import OpenAIModel, Model
 from src.logic_tree.tree import LogicTree, LogicNode, LogicNodeFactType
 from src.madlib.madlib import Madlib
 from src.utils.paths import OUTPUT_FOLDER, ROOT_FOLDER
@@ -57,8 +57,10 @@ nodes=[
 )
 
 example1_node_completion = LogicNode('James has a opportunity.', [
-    LogicNode('James has access to Victoria\'s house.'),
-    LogicNode('Having access to someones house gives you the opportunity to murder them.', fact_type=LogicNodeFactType.COMMONSENSE)
+    # LogicNode('James has access to Victoria\'s house.'),
+    LogicNode('Victoria has cats and is constantly vacationing and away from her home.'),
+    LogicNode('Victoria has James feed her cats when Victoria is away.'),
+    LogicNode('Someone who has needs to frequently visit someones home probably has a key to their place and access to their home.', fact_type=LogicNodeFactType.COMMONSENSE)
 ])
 
 example2_description = """
@@ -131,12 +133,12 @@ def main():
     tree_depth = 3
 
     max_number_of_suspects = 2
-    max_structure_completion_retries = 3
+    max_structure_completion_retries = 9
     max_num_suspicious_facts = 1
 
     use_validators = True
 
-    out_file = OUTPUT_FOLDER / 'custom_murder_mysteries.json'
+    out_file = OUTPUT_FOLDER / 'custom_murder_mystery.json'
     if out_file:
         out_file.parent.mkdir(exist_ok=True, parents=True)
 
@@ -146,10 +148,11 @@ def main():
 
     # Models we foudn helpful to use.  In our finalized dataset, we only used gpt4.
     gpt35 = OpenAIModel(engine='gpt-3.5-turbo', api_endpoint='chat', api_max_attempts=30, temperature=1.0, max_tokens=1500, num_samples=1, prompt_cost=0.0015/1000, completion_cost=0.002/1000)
-    gpt16k35 = OpenAIModel(engine='gpt-3.5-turbo-16k', api_endpoint='chat', api_max_attempts=30, temperature=1.0, max_tokens=2400, num_samples=1, prompt_cost=0.003/1000, completion_cost=0.004/1000)
+    gpt16k35 = OpenAIModel(engine='gpt-3.5-turbo-16k', api_endpoint='chat', api_max_attempts=30, temperature=1.0, top_p=0.95, max_tokens=2400, num_samples=1, prompt_cost=0.003/1000, completion_cost=0.004/1000)
     gpt4 = OpenAIModel(engine='gpt-4', api_max_attempts=30, api_endpoint='chat', temperature=1.0, top_p=1.0, max_tokens=2400, num_samples=1, prompt_cost=0.03/1000, completion_cost=0.06/1000)
+    llama2 = Model.load_model("hf/meta-llama/Llama-2-7b-chat-hf")
 
-    model_to_use = gpt16k35
+    model_to_use = llama2
 
     creator = MurderMysteryDataset()
 
